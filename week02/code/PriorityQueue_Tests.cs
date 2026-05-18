@@ -1,29 +1,48 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// TODO Problem 2 - Write and run test cases and fix the code to match requirements.
-
 [TestClass]
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_1()
+    // Scenario: Highest priority is removed
+    // Expected: B (priority 5)
+    public void TestPriorityQueue_HighestPriority()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var pq = new PriorityQueue();
+        pq.Enqueue("A", 1);
+        pq.Enqueue("B", 5);
+        pq.Enqueue("C", 3);
+
+        var result = pq.Dequeue();
+
+        Assert.AreEqual("B", result);
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_2()
+    // Scenario: FIFO tie-break for same priority
+    // Expected: A first (same priority as B)
+    public void TestPriorityQueue_FIFO_TieBreaker()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var pq = new PriorityQueue();
+        pq.Enqueue("A", 5);
+        pq.Enqueue("B", 5);
+        pq.Enqueue("C", 3);
+
+        var result = pq.Dequeue();
+
+        Assert.AreEqual("A", result);
     }
 
-    // Add more test cases as needed below.
+    [TestMethod]
+    // Scenario: Empty queue throws exception
+    // Expected: InvalidOperationException
+    public void TestPriorityQueue_Empty()
+    {
+        var pq = new PriorityQueue();
+
+        Assert.ThrowsException<InvalidOperationException>(() =>
+        {
+            pq.Dequeue();
+        });
+    }
 }
